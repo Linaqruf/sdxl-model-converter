@@ -69,7 +69,7 @@ def convert_and_save_sdxl_model(args, is_save_checkpoint, loaded_model_data, sav
     if is_save_checkpoint:
         save_sdxl_as_checkpoint(args, text_encoder1, text_encoder2, vae, unet, save_dtype)
     else:
-        save_sdxl_as_diffusers(args,  text_encoder1, text_encoder2, vae, unet)
+        save_sdxl_as_diffusers(args,  text_encoder1, text_encoder2, vae, unet, save_dtype)
 
 def save_sdxl_as_checkpoint(args, text_encoder1, text_encoder2, vae, unet, save_dtype):
     logit_scale = None
@@ -84,9 +84,9 @@ def save_sdxl_as_diffusers(args, text_encoder1, text_encoder2, vae, unet):
     reference_model_message = args.reference_model if args.reference_model is not None else 'default model'
     print(f"Copying scheduler/tokenizer config from: {reference_model_message}")
     sdxl_model_util.save_diffusers_checkpoint(
-        args.model_to_save, text_encoder1, text_encoder2, unet, args.reference_model, vae, True
+        args.model_to_save, text_encoder1, text_encoder2, unet, args.reference_model, vae, True, save_dtype
     )
-    print("Model saved.")
+    print(f"Model saved as {save_dtype}.")
 
 def get_save_path(args, is_save_checkpoint):
     basename = os.path.splitext(args.model_to_load)[0]

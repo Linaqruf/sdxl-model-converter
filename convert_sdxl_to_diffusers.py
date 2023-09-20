@@ -80,7 +80,7 @@ def save_sdxl_as_checkpoint(args, text_encoder1, text_encoder2, vae, unet, save_
         )
     print(f"Model saved. Total converted state_dict keys: {key_count}")
 
-def save_sdxl_as_diffusers(args, text_encoder1, text_encoder2, vae, unet):
+def save_sdxl_as_diffusers(args, text_encoder1, text_encoder2, vae, unet, save_dtype):
     reference_model_message = args.reference_model if args.reference_model is not None else 'default model'
     print(f"Copying scheduler/tokenizer config from: {reference_model_message}")
     sdxl_model_util.save_diffusers_checkpoint(
